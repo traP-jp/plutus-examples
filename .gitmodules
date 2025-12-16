@@ -1,0 +1,6 @@
+[submodule "sisyphus"]
+	path = sisyphus
+	url = git@github.com:traP-jp/sisyphus.git
+[submodule "hermes"]
+	path = hermes
+	url = git@github.com:traP-jp/hermes.git
