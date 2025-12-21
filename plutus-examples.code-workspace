@@ -1,0 +1,21 @@
+{
+    "folders": [
+        {
+            "name": "Demeter",
+            "path": "demeter"
+        },
+        {
+            "name": "Hermes",
+            "path": "hermes"
+        },
+        {
+            "name": "Sisyphus",
+            "path": "sisyphus"
+        },
+        {
+            "name": "Plutus Examples",
+            "path": "."
+        }
+    ],
+    "settings": {}
+}
