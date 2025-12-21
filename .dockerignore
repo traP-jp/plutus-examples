@@ -1,0 +1,8 @@
+hermes/node_modules
+hermes/.next
+hermes/.git
+sisyphus/node_modules
+sisyphus/target
+demeter/node_modules
+.git
+.DS_Store

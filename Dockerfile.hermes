@@ -1,0 +1,30 @@
+FROM node:25-alpine AS builder
+
+# pnpmをインストール（このレイヤーはキャッシュされる）
+RUN npm install -g pnpm@10.15.1
+
+WORKDIR /app
+
+# 依存関係ファイルだけ先にコピー（キャッシュ効率化のキモ）
+# package.jsonやpnpm-lock.yamlが変わらない限り、このレイヤーはキャッシュされる
+COPY hermes/package.json hermes/pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
+# ソースをコピーしてビルド（ソース変更時のみ再実行）
+COPY hermes .
+RUN pnpm build
+
+# 本番用の軽量イメージ
+FROM node:25-alpine AS runner
+
+WORKDIR /app
+
+# ビルド成果物をコピー
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/src/public ./src/public
+
+ENV HOSTNAME=0.0.0.0
+ENV NODE_ENV=production
+
+CMD ["node", "server.js"]
